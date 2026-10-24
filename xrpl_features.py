@@ -115,4 +115,5 @@ def extra_features(s, r, t, usd, pay):
     pair = s.astype(np.int64) * base + r
     pair_n = pd.Series(pair).map(pd.Series(pair).value_counts()).to_numpy(float)
     W = window_features(s, r, t, pair_n, conv, legs, usd)
-    return pd.concat([B, W], axis=1)
+    L = window_features(s, r, t, pair_n, conv, legs, usd, windows=(10800, 28800)).add_prefix("L_")   # 3 h / 8 h, account-centred (slower, 'medium' bursts)
+    return pd.concat([B, W, L], axis=1)
