@@ -130,11 +130,17 @@ Limits: 8 MiB compressed, 64 MiB uncompressed, 2,000 files. Encrypted, multi-par
 
 `payments.py` gives one effective sender-to-recipient edge per transaction, valued using the public reference prices. Raw transfer legs remain available for more detailed analysis. Keep `payments.py` alongside the notebook.
 
-It runs in under a minute on a laptop. Put it next to `train/` and `payments.py`, unzip the test download into `test-data/`, then:
+It runs in under a minute on a laptop. Put it next to `train/` and `payments.py`, unzip the test download into `test-data/`, then set up the Python environment and check the supplied files before coding:
 
 ```sh
-pip install pandas pyarrow scikit-learn jupyter
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python preflight.py
 jupyter notebook starter_notebook.ipynb
 ```
+
+`preflight.py` checks that the virtual environment is active, required packages are installed consistently, the supplied file checksums match, and the training and validation data can be loaded. The separate test-data download is optional for this check.
 
 To improve your score, add your own rules in the marked cell and run it again. The notebook shows which rules the model relied on, so you can see whether a new idea helps.
